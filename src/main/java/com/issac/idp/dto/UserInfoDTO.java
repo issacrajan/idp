@@ -1,34 +1,61 @@
-package com.issac.idp.model;
+package com.issac.idp.dto;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import com.issac.idp.model.UserInfo;
+import com.issac.idp.util.Util;
 
-@Entity
-@Table(name = "user_info")
-public class UserInfo {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+public class UserInfoDTO {
 	private String id;
-	
+
 	private String name;
-	private String lastname ;
-	private String email ;
-	private String password ;
-	private String location ;
+	private String lastname;
+	private String email;
+	private String password;
+	private String location;
 	private LocalDateTime createdTs;
 	private LocalDateTime updatedTs;
-	private String createdBy ;
+	private String createdBy;
 	private String updatedBy;
 	
+	public  UserInfo buildNewEntity() {
+		UserInfo e = new UserInfo();
+		
+		if (Util.hasContent(id)) {
+			e.setId(id);
+		}
+		e.setName(name);
+		e.setLastname(lastname);
+		e.setEmail(email);
+		e.setLocation(location);
+		
+		return e;
+	}
+	
+	public  UserInfo updateEntity(UserInfo e ) {
+		e.setName(name);
+		e.setLastname(lastname);
+		e.setEmail(email);
+		e.setLocation(location);
+		e.setCreatedBy(createdBy);
+		e.setCreatedTs(createdTs);
+		
+		return e;
+	}
+	public static UserInfoDTO buildFromEntity(UserInfo u) {
+		UserInfoDTO dto = new UserInfoDTO();
+		dto.setId(u.getId());
+		dto.setName(u.getName());
+		dto.setLastname(u.getLastname());
+		dto.setEmail(u.getEmail());
+		dto.setLocation(u.getLocation());
+		dto.setUpdatedBy(u.getUpdatedBy());
+		dto.setUpdatedTs(u.getUpdatedTs());
+		dto.setCreatedBy(u.getCreatedBy());
+		dto.setCreatedTs(u.getCreatedTs());
+		
+		return dto;
+	}
 	public String getId() {
 		return id;
 	}
@@ -89,38 +116,12 @@ public class UserInfo {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	
-	@PrePersist
-	public void preInsert() {
-		this.createdTs = LocalDateTime.now();
-		
-	}
-	
-	@PreUpdate
-	public void preUpdate() {
-		this.updatedTs = LocalDateTime.now();
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(email);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserInfo other = (UserInfo) obj;
-		return Objects.equals(email, other.email);
-	}
+
 	@Override
 	public String toString() {
-		return "UserInfo [id=" + id + ", name=" + name + ", lastname=" + lastname + ", email=" + email + ", password="
-				+ password + ", location=" + location + ", createdTs=" + createdTs + ", updatedTs=" + updatedTs
-				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + "]";
+		return "UserInfoDTO [id=" + id + ", name=" + name + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + password + ", location=" + location + ", createdTs=" + createdTs + ", updatedTs="
+				+ updatedTs + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + "]";
 	}
 	
 	

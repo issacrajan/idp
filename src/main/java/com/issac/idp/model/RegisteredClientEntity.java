@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "oauth2_registered_client")
-public class RegisteredClient {
+public class RegisteredClientEntity {
 
 	@Id
 	private String id;

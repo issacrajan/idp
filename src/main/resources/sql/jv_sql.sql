@@ -83,13 +83,17 @@ create table client_idp_info (
 	idp_url varchar(200),
 	domain_name varchar(200),
 	login_method varchar(10),
+	redirect_uri varchar(200),
+	idp_provider varchar(20),
 	constraint pk_client_idp_info primary key  (client_id)
 );
 
 insert into client_idp_info (
 client_Id, idp_url, domain_name, login_method)
 values ('client1', 'http://localhost:8080/oauth2/authorize',
-	   'localhost', 'openid');
+	   'localhost', 'openid',
+	   'http://localhost:9090/auth/callback',
+	   'spring');
 	   
 	   
 

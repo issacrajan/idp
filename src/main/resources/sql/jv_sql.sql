@@ -77,3 +77,19 @@ CREATE TABLE oauth2_authorization (
 );
 
 
+
+create table client_idp_info (
+	client_id varchar(200) not null,
+	idp_url varchar(200),
+	domain_name varchar(200),
+	login_method varchar(10),
+	constraint pk_client_idp_info primary key  (client_id)
+);
+
+insert into client_idp_info (
+client_Id, idp_url, domain_name, login_method)
+values ('client1', 'http://localhost:8080/oauth2/authorize',
+	   'localhost', 'openid');
+	   
+	   
+

@@ -1,0 +1,45 @@
+
+insert into oauth2_registered_client(
+id ,
+    client_id ,
+    client_id_issued_at,
+    client_secret ,
+    client_secret_expires_at ,
+    client_name ,
+    client_authentication_methods ,
+    authorization_grant_types ,
+    redirect_uris,
+    scopes ,
+    client_settings ,
+    token_settings ,
+    created_Ts ,
+	updated_Ts ,
+	created_By ,
+	updated_By) values 
+	('1b600be1-8f1a-44ca-ae98-67b33bc1b1e4',
+	'client1',
+	CURRENT_TIMESTAMP,
+	'$2a$10$sqBNbgOZQINsSViKTpXK9uMatuylQUHeTrJnOpPWJXmip4bobLJ1W',
+	'2023-12-31',
+	'client1',
+	'client_secret_basic',
+	'authorization_code',
+	'http://127.0.0.1:9000/auth/callback',
+	'read,openid',
+	'',
+	'{"authorizationCodeTimeToLive": "PT5M",
+	"accessTokenTimeToLive": "PT30M",
+"reuseRefreshTokens": true,
+"refreshTokenTimeToLive": "PT2H",
+"idTokenSignatureAlgorithm": "RS256",
+"accessTokenFormat": "self-contained"
+}',
+	null,
+	null,
+	null,
+	null);
+	
+	
+http://localhost:8080/oauth2/authorize?response_type=code&client_id=client1&redirect_uri=http%3A%2F%2F127.0.0.1%3A9000%2Fauth%2Fcallback
+	
+	

@@ -5,6 +5,7 @@
 package com.issac.idp.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
@@ -12,9 +13,10 @@ import jakarta.persistence.Table;
  *
  */
 @Entity
-@Table(name="oauth2_authorization_consent")
+@Table(name = "oauth2_authorization_consent")
 public class Oauth2AuthorizationConsent {
 
+	@Id
 	private String registeredClientId;
 	private String principalName;
 	private String authorities;

@@ -19,6 +19,11 @@ bin/
 
 target/
 
+src/main/resources/keypair.pem
+src/main/resources/pkcs8.key
+src/main/resources/publickey.crt
+
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

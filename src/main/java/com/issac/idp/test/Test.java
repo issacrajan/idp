@@ -19,7 +19,7 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		org.springframework.security.crypto.password.PasswordEncoder encoder = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
 
-		System.out.println(encoder.encode("password"));
+		System.out.println(encoder.encode("secret1"));
 		System.out.println(UUID.randomUUID().toString());
 		// $2a$10$sqBNbgOZQINsSViKTpXK9uMatuylQUHeTrJnOpPWJXmip4bobLJ1W
 

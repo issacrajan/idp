@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 target/
+logs/
 
 src/main/resources/keypair.pem
 src/main/resources/pkcs8.key

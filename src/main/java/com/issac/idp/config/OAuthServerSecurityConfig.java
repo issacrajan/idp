@@ -20,11 +20,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -48,7 +48,21 @@ public class OAuthServerSecurityConfig {
 	@Bean
 	@Order(1)
 	public SecurityFilterChain authServerSecurityFilterChain(HttpSecurity http) throws Exception {
-		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+		// OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
+		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
+		RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
+
+		// @formatter:off
+		http.securityMatcher(endpointsMatcher)
+				.authorizeHttpRequests().requestMatchers("/auth/authlocal/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
+//				.csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
+				.csrf(csrf -> csrf.disable())
+				.apply(authorizationServerConfigurer);
+		// @formatter:on
+
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults()); // Initialize
 																										// `OidcConfigurer`
 		return http.formLogin(Customizer.withDefaults()).build();
@@ -57,9 +71,15 @@ public class OAuthServerSecurityConfig {
 	@Bean
 	@Order(2)
 	public SecurityFilterChain standardSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
-				.formLogin(Customizer.withDefaults());
-
+		// @formatter:off
+		http.authorizeHttpRequests()
+			.requestMatchers("/auth/authlocal/**").permitAll()
+			.requestMatchers("/auth/user/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.csrf(csrf -> csrf.disable())
+			.formLogin(Customizer.withDefaults());
+		// @formatter:on
 		return http.build();
 	}
 

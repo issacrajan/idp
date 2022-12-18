@@ -20,7 +20,7 @@ import com.issac.idp.service.UserService;
  *
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth/user")
 public class UserController {
 
 	private UserService userService;
@@ -35,7 +35,7 @@ public class UserController {
 
 		return new ResponseEntity<>(userInfoDTO, HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<UserInfoDTO> saveUser(@RequestBody UserInfoDTO userInfoDTO) {
 		System.out.println(userInfoDTO);

@@ -20,6 +20,8 @@ bin/
 target/
 logs/
 
+*.log
+
 src/main/resources/keypair.pem
 src/main/resources/pkcs8.key
 src/main/resources/publickey.crt

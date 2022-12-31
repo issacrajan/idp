@@ -38,6 +38,10 @@ public class Test {
 
 	}
 
+	private void testSecurityProvider() {
+		java.security.Security.insertProviderAt(null, 0);
+	}
+
 	private static void encodeURL(String url) throws UnsupportedEncodingException {
 		System.out.println(URLEncoder.encode(url, "UTF-8"));
 	}

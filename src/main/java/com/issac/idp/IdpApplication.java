@@ -2,11 +2,13 @@ package com.issac.idp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @SpringBootApplication
 public class IdpApplication {
 
 	public static void main(String[] args) {
+		BasicAuthenticationFilter f;
 		SpringApplication.run(IdpApplication.class, args);
 
 		/*
